@@ -1,0 +1,4 @@
+https://blog.naver.com/makepluscode/221391626996
+-> ESP8266으로 서버만들기
+https://webnautes.tistory.com/816
+-> Android 앱에서 ESP8266 모듈 연결한 Arduino Uno 제어하기
