@@ -3,7 +3,7 @@
 SoftwareSerial mySerial(8, 9); // TX, RX
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(115200);
   mySerial.begin(115200);
 }
 
