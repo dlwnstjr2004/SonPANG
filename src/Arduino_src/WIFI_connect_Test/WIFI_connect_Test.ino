@@ -11,7 +11,7 @@ void setup()
     // ESP8266
     esp8266Serial.begin(9600);
     wifi.begin();
-    wifi.setTimeout(1000);
+    wifi.setTimeout(10000);
 
     /****************************************/
     /******       Basic commands       ******/
@@ -25,9 +25,9 @@ void setup()
     Serial.println(getStatus(wifi.restart()));*/
 
     // getVersion
-    char version[16] = {};
+    char version[256] = {};
     Serial.print("getVersion: ");
-    Serial.print(getStatus(wifi.getVersion(version, 16)));
+    Serial.print(getStatus(wifi.getVersion(version, 256)));
     Serial.print(" : ");
     Serial.println(version);
 
@@ -44,7 +44,7 @@ void setup()
     /****************************************/
     // setWifiMode
     Serial.print("setWifiMode: ");
-    Serial.println(getStatus(wifi.setMode(ESP8266_WIFI_ACCESSPOINT)));
+    Serial.println(getStatus(wifi.setMode(ESP8266_WIFI_BOTH)));
 
     // getWifiMode
     /*ESP8266WifiMode mode;
@@ -52,24 +52,24 @@ void setup()
     Serial.println(getStatus(wifi.getMode(&mode)));*/
 
     // joinAP
-    /*Serial.print("joinAP: ");
-    Serial.println(getStatus(wifi.joinAP("ssid", "password")));*/
+    Serial.print("joinAP: ");
+    Serial.println(getStatus(wifi.joinAP("BOOT4DIM", "i_love_boot4dim")));
 
     // getAP
-    /*char ap[32] = {};
+    char ap[128] = {};
     Serial.print("getAP: ");
     Serial.print(getStatus(wifi.getAP(ap)));
     Serial.print(" : ");
-    Serial.println(ap);*/
+    Serial.println(ap);
 
     // quitAP
     /*Serial.print("quitAP: ");
     Serial.println(getStatus(wifi.quitAP()));*/
 
     // setAPConfiguration
-    Serial.print("setAPConfiguration: ");
+    /*Serial.print("setAPConfiguration: ");
     Serial.println(getStatus(wifi.setAPConfiguration("ESP8266", "awesomelib", 10, ESP8266_ENCRYPTION_WPA_WPA2_PSK)));
-    wifi.restart();
+    wifi.restart();*/
 
     // getAPConfiguration
     /*char ssid[32] = {};
@@ -127,7 +127,7 @@ void setup()
     Serial.println(ipAP);*/
 
     // getIP
-    /*IPAddress ip;
+    IPAddress ip;
     Serial.print("getIP STA: ");
     Serial.print(getStatus(wifi.getIP(ESP8266_WIFI_STATION, ip)));
     Serial.print(" : ");
@@ -135,7 +135,7 @@ void setup()
     Serial.print("getIP AP: ");
     Serial.print(getStatus(wifi.getIP(ESP8266_WIFI_ACCESSPOINT, ip)));
     Serial.print(" : ");
-    Serial.println(ip);*/
+    Serial.println(ip);
 
     /****************************************/
     /******       TCP/IP commands      ******/
@@ -153,8 +153,8 @@ void setup()
     Serial.println(getStatus(wifi.close()));*/
 
     // setMultipleConnections
-    Serial.print("setMultipleConnections: ");
-    Serial.println(getStatus(wifi.setMultipleConnections(true)));
+    //Serial.print("setMultipleConnections: ");
+    //Serial.println(getStatus(wifi.setMultipleConnections(true)));
 
     // getMultipleConnections
     /*bool multipleConnections;
@@ -168,8 +168,8 @@ void setup()
     Serial.println(getStatus(wifi.createServer(4000)));
 
     // deleteServer
-    Serial.print("deleteServer: ");
-    Serial.println(getStatus(wifi.deleteServer()));
+    //Serial.print("deleteServer: ");
+    //Serial.println(getStatus(wifi.deleteServer()));
 
     // setServerTimeout
     /*Serial.print("setServerTimeout: ");

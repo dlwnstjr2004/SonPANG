@@ -2,3 +2,15 @@ https://blog.naver.com/makepluscode/221391626996
 -> ESP8266으로 서버만들기
 https://webnautes.tistory.com/816
 -> Android 앱에서 ESP8266 모듈 연결한 Arduino Uno 제어하기
+
+처음 사용 할때 보드레이트 9600으로 바꾸어주어야함. 안그러면 글자 깨짐.
+
+AT+UART_DEF=9600,8,1,0,0
+
+그리고 AP 모드를 3으로 바꾸어 주어야함.
+
+AT+CWMODE=mode
+1 : Station Mode, WiFi 디바이스 기능
+2 : AP Mode, Access Point 기능
+3 : AP +Station Mode, 디바이이스 + AP 기능
+
