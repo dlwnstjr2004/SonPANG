@@ -14,3 +14,39 @@ AT+CWMODE=mode
 2 : AP Mode, Access Point 기능
 3 : AP +Station Mode, 디바이이스 + AP 기능
 
+AT+CWLAP : AP 리스트 출력 명령
+
+AT+CWJAP :  AP 접속명령
+AT+CWJAP="ssid","password"
+
+AT+CWQAP : AP 접속 해제 명령
+
+AT+CWSAP : AP 모드 사용시 ssid, password, 채널, 보안방식을 설정
+
+AT+CWSAP="ssid","password","채널 ID","보안방식"
+    보안방식
+0 : OPEN
+2 : WPA_PSK
+3 : WPA2_PSK
+4 : WPA_WPA2_PSK
+
+AT+CWLIF
+  - 응답 : 접속 IP 주소
+12. AT+CWDHCP : DHCP 설정(AP mode)
+13. AT+CIPSTAMAC : MAC 설정(Station Mode)
+14. AT+CIPAPMAC : MAC 설정(AP Mode)
+15. AT+CIPSTA : IP 어드레스 설정(Station Mode)
+16. AT+CIPAP : IP 어드레스 설정(AP Mode)
+
+TCP/IP 기능
+17. AT+CIPSTATUS : 접속정보
+18. AT+CIPSTART : TCP 또는 UDP 포트 설정/연결
+19. AT+CIPSEND : 데이터 전송
+20. AT+CIPCLOSE : TCP 또는 UDP 접속 해제
+21. AT+FSR : 로컬 IP 취득
+22. AT+CIPMUX : 다중접속 설정
+23. AT+CIPSERVER : 서버설정
+24. AT+CIPMODE : 전송모드 설정
+25. AT+CIPSTO : 서버 타임아웃 설정
+26. AT+CIUPDATE : 네트워크를 통한 업데이트
+27. AT+IPR : ESP 모듈의 Baud rate 설정
