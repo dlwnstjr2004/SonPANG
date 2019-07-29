@@ -1,5 +1,10 @@
 #include <SoftwareSerial.h>
+
 #include "ESP8266.h"
+
+#define ssid      "BOOT4DIM"
+#define PASSWORD  "i_love_boot4dim"
+#define PORT      8000
 
 SoftwareSerial esp8266Serial = SoftwareSerial(8, 9);
 ESP8266 wifi = ESP8266(esp8266Serial);
@@ -25,9 +30,9 @@ void setup()
     Serial.println(getStatus(wifi.restart()));*/
 
     // getVersion
-    char version[256] = {};
+    char version[64] = {};
     Serial.print("getVersion: ");
-    Serial.print(getStatus(wifi.getVersion(version, 256)));
+    Serial.print(getStatus(wifi.getVersion(version, 64)));
     Serial.print(" : ");
     Serial.println(version);
 
@@ -53,23 +58,23 @@ void setup()
 
     // joinAP
     Serial.print("joinAP: ");
-    Serial.println(getStatus(wifi.joinAP("BOOT4DIM", "i_love_boot4dim")));
+    Serial.println(getStatus(wifi.joinAP(ssid, PASSWORD)));
 
     // getAP
-    char ap[128] = {};
+    /*char ap[32] = {};
     Serial.print("getAP: ");
     Serial.print(getStatus(wifi.getAP(ap)));
     Serial.print(" : ");
-    Serial.println(ap);
+    Serial.println(ap);*/
 
     // quitAP
     /*Serial.print("quitAP: ");
     Serial.println(getStatus(wifi.quitAP()));*/
 
     // setAPConfiguration
-    /*Serial.print("setAPConfiguration: ");
+    Serial.print("setAPConfiguration: ");
     Serial.println(getStatus(wifi.setAPConfiguration("ESP8266", "awesomelib", 10, ESP8266_ENCRYPTION_WPA_WPA2_PSK)));
-    wifi.restart();*/
+    wifi.restart();
 
     // getAPConfiguration
     /*char ssid[32] = {};
@@ -127,7 +132,7 @@ void setup()
     Serial.println(ipAP);*/
 
     // getIP
-    IPAddress ip;
+    /*IPAddress ip;
     Serial.print("getIP STA: ");
     Serial.print(getStatus(wifi.getIP(ESP8266_WIFI_STATION, ip)));
     Serial.print(" : ");
@@ -135,7 +140,7 @@ void setup()
     Serial.print("getIP AP: ");
     Serial.print(getStatus(wifi.getIP(ESP8266_WIFI_ACCESSPOINT, ip)));
     Serial.print(" : ");
-    Serial.println(ip);
+    Serial.println(ip);*/
 
     /****************************************/
     /******       TCP/IP commands      ******/
@@ -153,8 +158,8 @@ void setup()
     Serial.println(getStatus(wifi.close()));*/
 
     // setMultipleConnections
-    //Serial.print("setMultipleConnections: ");
-    //Serial.println(getStatus(wifi.setMultipleConnections(true)));
+    Serial.print("setMultipleConnections: ");
+    Serial.println(getStatus(wifi.setMultipleConnections(true)));
 
     // getMultipleConnections
     /*bool multipleConnections;
@@ -165,11 +170,11 @@ void setup()
 
     // createServer
     Serial.print("createServer: ");
-    Serial.println(getStatus(wifi.createServer(4000)));
+    Serial.println(getStatus(wifi.createServer(PORT)));
 
     // deleteServer
-    //Serial.print("deleteServer: ");
-    //Serial.println(getStatus(wifi.deleteServer()));
+    /*Serial.print("deleteServer: ");
+    Serial.println(getStatus(wifi.deleteServer()));*/
 
     // setServerTimeout
     /*Serial.print("setServerTimeout: ");
@@ -235,7 +240,7 @@ void loop()
 
 
     // read data
-    /*unsigned int id;
+    unsigned int id;
     int length;
     int totalRead;
     char buffer[11] = {};
@@ -254,7 +259,7 @@ void loop()
         Serial.print(": ");
         Serial.println((char*)buffer);
       }
-    }*/
+    }
 }
 
 String getStatus(bool status)
