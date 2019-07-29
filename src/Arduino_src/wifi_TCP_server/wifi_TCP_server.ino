@@ -1,13 +1,15 @@
 #include <SoftwareSerial.h>
-
 #include "ESP8266.h"
 
-#define ssid      "BOOT4DIM"
-#define PASSWORD  "i_love_boot4dim"
-#define PORT      8001
+#define ssid      "SmartSon"
+#define password  "2287228722872"
+#define port      8000
 
 SoftwareSerial esp8266Serial = SoftwareSerial(8, 9);
 ESP8266 wifi = ESP8266(esp8266Serial);
+//char ssid[] = ""; 
+//char password[] = "";
+//char port[] = "";
 
 void setup()
 {
@@ -55,10 +57,52 @@ void setup()
     /*ESP8266WifiMode mode;
     Serial.print("getWifiMode: ");
     Serial.println(getStatus(wifi.getMode(&mode)));*/
+/*
+    int i = 0;
 
+    Serial.print("wifi name : ");
+    while(1)
+    {
+      if(Serial.available())
+      {
+        ssid[i++] = Serial.read();
+      }
+      else if(i != 0)
+        break;
+    }
+    Serial.println(ssid);
+    i = 0;
+
+    Serial.print("password : ");
+    while(1)
+    {
+      if(Serial.available())
+      {
+        password[i++] = Serial.read();
+      }
+      else if(i != 0)
+        break;
+    }
+    Serial.println(password);
+    i = 0;
+
+    Serial.print("port : ");
+    while(1)
+    {
+      if(Serial.available())
+      {
+        port[i++] = Serial.read();
+      }
+      else if(i != 0)
+        break;
+    }
+    Serial.println(port);
+    */
+
+    
     // joinAP
     Serial.print("joinAP: ");
-    Serial.println(getStatus(wifi.joinAP(ssid, PASSWORD)));
+    Serial.println(getStatus(wifi.joinAP(ssid, password)));
 
     // getAP
     char ap[32] = {};
@@ -172,7 +216,7 @@ void setup()
     Serial.println(getStatus(wifi.deleteServer()));
     // createServer
     Serial.print("createServer: ");
-    Serial.println(getStatus(wifi.createServer(8001)));
+    Serial.println(getStatus(wifi.createServer(port)));
 
     // deleteServer
     /*Serial.print("deleteServer: ");
