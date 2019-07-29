@@ -4,7 +4,7 @@
 
 #define ssid      "BOOT4DIM"
 #define PASSWORD  "i_love_boot4dim"
-#define PORT      8000
+#define PORT      8001
 
 SoftwareSerial esp8266Serial = SoftwareSerial(8, 9);
 ESP8266 wifi = ESP8266(esp8266Serial);
@@ -61,20 +61,20 @@ void setup()
     Serial.println(getStatus(wifi.joinAP(ssid, PASSWORD)));
 
     // getAP
-    /*char ap[32] = {};
+    char ap[32] = {};
     Serial.print("getAP: ");
     Serial.print(getStatus(wifi.getAP(ap)));
     Serial.print(" : ");
-    Serial.println(ap);*/
+    Serial.println(ap);
 
     // quitAP
     /*Serial.print("quitAP: ");
     Serial.println(getStatus(wifi.quitAP()));*/
 
     // setAPConfiguration
-    Serial.print("setAPConfiguration: ");
+    /*Serial.print("setAPConfiguration: ");
     Serial.println(getStatus(wifi.setAPConfiguration("ESP8266", "awesomelib", 10, ESP8266_ENCRYPTION_WPA_WPA2_PSK)));
-    wifi.restart();
+    wifi.restart();/*
 
     // getAPConfiguration
     /*char ssid[32] = {};
@@ -168,9 +168,11 @@ void setup()
     Serial.print(" : ");
     Serial.println(multipleConnections);*/
 
+    Serial.print("deleteServer: ");
+    Serial.println(getStatus(wifi.deleteServer()));
     // createServer
     Serial.print("createServer: ");
-    Serial.println(getStatus(wifi.createServer(PORT)));
+    Serial.println(getStatus(wifi.createServer(8001)));
 
     // deleteServer
     /*Serial.print("deleteServer: ");
@@ -247,7 +249,7 @@ void loop()
 
     if ((length = wifi.available()) > 0) {
       id = wifi.getId();
-      totalRead = wifi.read(buffer, 10);
+      totalRead = wifi.read(buffer, 128);
 
       if (length > 0) {
         Serial.print("Received ");
