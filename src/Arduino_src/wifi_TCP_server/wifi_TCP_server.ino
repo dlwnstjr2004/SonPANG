@@ -1,9 +1,9 @@
 #include <SoftwareSerial.h>
 #include "ESP8266.h"
 
-#define ssid      "SmartSon"
-#define password  "2287228722872"
-#define port      8000
+#define ssid      "BOOT4DIM"
+#define password  "i_love_boot4dim"
+#define port      8001
 
 SoftwareSerial esp8266Serial = SoftwareSerial(8, 9);
 ESP8266 wifi = ESP8266(esp8266Serial);
