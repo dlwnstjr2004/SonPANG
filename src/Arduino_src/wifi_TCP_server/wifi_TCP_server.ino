@@ -1,4 +1,5 @@
 #include <SoftwareSerial.h>
+#include <Stepper.h>
 #include "ESP8266.h"
 
 #define ssid      "BOOT4DIM"
@@ -7,14 +8,16 @@
 
 SoftwareSerial esp8266Serial = SoftwareSerial(8, 9);
 ESP8266 wifi = ESP8266(esp8266Serial);
-//char ssid[] = ""; 
-//char password[] = "";
-//char port[] = "";
+
+const int stepsPerRevolution = 200;
+Stepper myStepper(stepsPerRevolution, 4, 6, 5, 7);
 
 void setup()
 {
     Serial.begin(9600);
+    myStepper.setSpeed(200);
 
+    
     // ESP8266
     esp8266Serial.begin(9600);
     wifi.begin();
@@ -305,9 +308,20 @@ void loop()
         Serial.print(": ");
         Serial.println((char*)buffer);
       }
+
+      if(!strcmp(buffer, "1\n"))
+      {
+        myStepper.setSpeed(200);
+        myStepper.step(stepsPerRevolution);
+      }
+      else
+      {
+        myStepper.setSpeed(200);
+        myStepper.step(-stepsPerRevolution);
+      }
     }
 }
-
++
 String getStatus(bool status)
 {
     if (status)
