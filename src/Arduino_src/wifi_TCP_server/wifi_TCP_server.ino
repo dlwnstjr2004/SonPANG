@@ -311,17 +311,35 @@ void loop()
 
       if(!strcmp(buffer, "1\n"))
       {
-        myStepper.setSpeed(200);
-        myStepper.step(stepsPerRevolution);
+        myStepper.setSpeed(100);
+        int i = 0;
+        for(i = 0;i < 30; i++)
+        {
+          myStepper.step(stepsPerRevolution/8);
+          myStepper.step(-10);
+        }
+        digitalWrite(4, LOW);
+        digitalWrite(5, LOW);
+        digitalWrite(6, LOW);
+        digitalWrite(7, LOW);
       }
       else
       {
-        myStepper.setSpeed(200);
-        myStepper.step(-stepsPerRevolution);
+        myStepper.setSpeed(100);
+        int i = 0;
+        for(i = 0;i < 30; i++)
+        {
+          myStepper.step(-stepsPerRevolution/8);
+          myStepper.step(10);
+        }
+        digitalWrite(4, LOW);
+        digitalWrite(5, LOW);
+        digitalWrite(6, LOW);
+        digitalWrite(7, LOW);
       }
     }
 }
-+
+
 String getStatus(bool status)
 {
     if (status)
