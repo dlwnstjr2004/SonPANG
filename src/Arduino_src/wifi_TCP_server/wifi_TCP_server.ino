@@ -1,21 +1,24 @@
+#include <StepperMulti.h>
 #include <SoftwareSerial.h>
 #include <Stepper.h>
 #include "ESP8266.h"
 
-#define ssid      "BOOT4DIM"
-#define password  "i_love_boot4dim"
+#define ssid      "VLSI_2_4"
+#define password  "vlsilab110224"
 #define port      8001
 
-SoftwareSerial esp8266Serial = SoftwareSerial(8, 9);
+SoftwareSerial esp8266Serial = SoftwareSerial(10, 11);
 ESP8266 wifi = ESP8266(esp8266Serial);
 
 const int stepsPerRevolution = 200;
-Stepper myStepper(stepsPerRevolution, 4, 6, 5, 7);
+Stepper myStepper(stepsPerRevolution, 6, 8, 7, 9); //6879
+Stepper myStepper2(stepsPerRevolution, 2, 4, 3, 5);
 
 void setup()
 {
     Serial.begin(9600);
-    myStepper.setSpeed(200);
+    myStepper.setSpeed(100);
+    myStepper2.setSpeed(100);
 
     
     // ESP8266
@@ -55,6 +58,17 @@ void setup()
     // setWifiMode
     Serial.print("setWifiMode: ");
     Serial.println(getStatus(wifi.setMode(ESP8266_WIFI_BOTH)));
+
+    // joinAP
+    Serial.print("joinAP: ");
+    Serial.println(getStatus(wifi.joinAP(ssid, password)));
+
+    // getAP
+    char ap[32] = {};
+    Serial.print("getAP: ");
+    Serial.print(getStatus(wifi.getAP(ap)));
+    Serial.print(" : ");
+    Serial.println(ap);
 
     // getWifiMode
     /*ESP8266WifiMode mode;
@@ -101,18 +115,6 @@ void setup()
     }
     Serial.println(port);
     */
-
-    
-    // joinAP
-    Serial.print("joinAP: ");
-    Serial.println(getStatus(wifi.joinAP(ssid, password)));
-
-    // getAP
-    char ap[32] = {};
-    Serial.print("getAP: ");
-    Serial.print(getStatus(wifi.getAP(ap)));
-    Serial.print(" : ");
-    Serial.println(ap);
 
     // quitAP
     /*Serial.print("quitAP: ");
@@ -294,7 +296,8 @@ void loop()
     int totalRead;
     char buffer[11] = {};
 
-    if ((length = wifi.available()) > 0) {
+    if ((length = wifi.available()) > 0) 
+    {
       id = wifi.getId();
       totalRead = wifi.read(buffer, 128);
 
@@ -311,33 +314,62 @@ void loop()
 
       if(!strcmp(buffer, "1\n"))
       {
-        myStepper.setSpeed(100);
+        Serial.print("먹자구구구\n");
         int i = 0;
-        for(i = 0;i < 30; i++)
-        {
-          myStepper.step(stepsPerRevolution/8);
-          myStepper.step(-10);
-        }
+
+        
+        multiturn(myStepper, myStepper2, 200);
+        
+        digitalWrite(2, LOW);
+        digitalWrite(3, LOW);
         digitalWrite(4, LOW);
         digitalWrite(5, LOW);
         digitalWrite(6, LOW);
         digitalWrite(7, LOW);
+        digitalWrite(8, LOW);
+        digitalWrite(9, LOW);
+        
       }
       else
       {
-        myStepper.setSpeed(100);
+        Serial.print("그만먹어\n");
         int i = 0;
-        for(i = 0;i < 30; i++)
-        {
-          myStepper.step(-stepsPerRevolution/8);
-          myStepper.step(10);
-        }
+        
+        multiturn(myStepper, myStepper2, -200);
+        
+        digitalWrite(2, LOW);
+        digitalWrite(3, LOW);
         digitalWrite(4, LOW);
         digitalWrite(5, LOW);
         digitalWrite(6, LOW);
         digitalWrite(7, LOW);
+        digitalWrite(8, LOW);
+        digitalWrite(9, LOW);
+        
       }
     }
+}
+
+void multiturn(Stepper moter1, Stepper moter2, int Step)
+{
+  int i = 0;
+  if(Step > 0)
+  {
+    for(i = 0;i < Step; i++)
+    {
+      moter1.step(-1);
+      moter2.step(1);
+    }
+  }
+  else
+  {
+    for(i = Step;i < 0; i++)
+    {
+      moter1.step(1);
+      moter2.step(-1);
+    }
+  }
+  
 }
 
 String getStatus(bool status)
