@@ -6,4 +6,4 @@
 cat feeder는 외부에서도 어플을 통해 반려동물에게 밥을 줄 수 있습니다.
 
 참고
-[youtube Link]: (www.naver.com)
+www.naver.com
